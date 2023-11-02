@@ -54,8 +54,7 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
           name: 'ListeningPage',
           path: '/listeningPage',
           builder: (context, params) => ListeningPageWidget(
-            urlLink: params.getParam('urlLink', ParamType.String),
-            category: params.getParam('category', ParamType.JSON),
+            url0: params.getParam('url0', ParamType.String),
           ),
         ),
         FFRoute(

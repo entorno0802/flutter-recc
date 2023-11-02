@@ -160,7 +160,6 @@ class _List02ProductsWidgetState extends State<List02ProductsWidget> {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 0.0),
                   child: Container(
-                    height: 120.0,
                     decoration: BoxDecoration(
                       color: Colors.white,
                     ),
@@ -301,40 +300,14 @@ class _List02ProductsWidgetState extends State<List02ProductsWidget> {
                     ],
                   ),
                 ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 0.0, 12.0),
-                  child: Container(
-                    height: 18.0,
-                    constraints: BoxConstraints(
-                      maxHeight: 18.0,
-                    ),
-                    decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
-                    ),
-                    child: Text(
-                      ReccApiGroup.extractMentionedDataCall
-                          .mediaCategory(
-                            columnExtractMentionedDataResponse.jsonBody,
-                          )
-                          .toString(),
-                      textAlign: TextAlign.start,
-                      style: GoogleFonts.getFont(
-                        'Roboto',
-                        color: Color(0xFF1B1D24),
-                        fontSize: 11.0,
-                      ),
-                    ),
-                  ),
-                ),
                 Container(
-                  width: double.infinity,
-                  height: 395.0,
+                  height: 500.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                   ),
                   child: Builder(
                     builder: (context) {
-                      final media = ReccApiGroup.extractMentionedDataCall
+                      final medias = ReccApiGroup.extractMentionedDataCall
                               .media(
                                 columnExtractMentionedDataResponse.jsonBody,
                               )
@@ -344,132 +317,169 @@ class _List02ProductsWidgetState extends State<List02ProductsWidget> {
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
                         scrollDirection: Axis.vertical,
-                        itemCount: media.length,
-                        itemBuilder: (context, mediaIndex) {
-                          final mediaItem = media[mediaIndex];
-                          return Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
-                                24.0, 0.0, 24.0, 12.0),
-                            child: Container(
-                              height: 100.0,
-                              constraints: BoxConstraints(
-                                maxHeight: 100.0,
-                              ),
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                              ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0.0, 0.0, 12.0, 0.0),
-                                    child: Container(
-                                      width: 64.0,
-                                      height: 96.0,
-                                      decoration: BoxDecoration(
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondaryBackground,
-                                        image: DecorationImage(
-                                          fit: BoxFit.fitHeight,
-                                          image: CachedNetworkImageProvider(
-                                            ReccApiGroup
-                                                .extractMentionedDataCall
-                                                .mediaImage(
-                                              columnExtractMentionedDataResponse
-                                                  .jsonBody,
-                                            ),
-                                          ),
-                                        ),
-                                        borderRadius:
-                                            BorderRadius.circular(8.0),
-                                      ),
+                        itemCount: medias.length,
+                        itemBuilder: (context, mediasIndex) {
+                          final mediasItem = medias[mediasIndex];
+                          return Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    24.0, 0.0, 0.0, 12.0),
+                                child: Container(
+                                  height: 18.0,
+                                  constraints: BoxConstraints(
+                                    maxHeight: 18.0,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                  ),
+                                  child: Text(
+                                    (ReccApiGroup.extractMentionedDataCall
+                                            .mediaCategory(
+                                      columnExtractMentionedDataResponse
+                                          .jsonBody,
+                                    ) as List)
+                                        .map<String>((s) => s.toString())
+                                        .toList()[mediasIndex],
+                                    textAlign: TextAlign.start,
+                                    style: GoogleFonts.getFont(
+                                      'Roboto',
+                                      color: Color(0xFF1B1D24),
+                                      fontSize: 11.0,
                                     ),
                                   ),
-                                  Expanded(
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 0.0, 12.0, 0.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          Text(
-                                            valueOrDefault<String>(
-                                              ReccApiGroup
-                                                  .extractMentionedDataCall
-                                                  .mediaTitle(
-                                                    columnExtractMentionedDataResponse
-                                                        .jsonBody,
-                                                  )
-                                                  .toString(),
-                                              'Stolen Focus',
-                                            ),
-                                            style: GoogleFonts.getFont(
-                                              'Roboto',
-                                              color: Color(0xFF1B1D24),
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 14.0,
-                                            ),
-                                          ),
-                                          Text(
-                                            valueOrDefault<String>(
-                                              ReccApiGroup
-                                                  .extractMentionedDataCall
-                                                  .mediaAuthor(
-                                                    columnExtractMentionedDataResponse
-                                                        .jsonBody,
-                                                  )
-                                                  .toString(),
-                                              'Johann Hari',
-                                            ),
-                                            style: GoogleFonts.getFont(
-                                              'Roboto',
-                                              color: Color(0xFF1B1D24),
-                                              fontWeight: FontWeight.normal,
-                                              fontSize: 14.0,
-                                            ),
-                                          ),
-                                          Expanded(
-                                            child: AutoSizeText(
-                                              valueOrDefault<String>(
+                                ),
+                              ),
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    24.0, 0.0, 24.0, 12.0),
+                                child: Container(
+                                  height: 100.0,
+                                  constraints: BoxConstraints(
+                                    maxHeight: 100.0,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: FlutterFlowTheme.of(context)
+                                        .secondaryBackground,
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Padding(
+                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                            0.0, 0.0, 12.0, 0.0),
+                                        child: Container(
+                                          width: 64.0,
+                                          height: 96.0,
+                                          decoration: BoxDecoration(
+                                            color: FlutterFlowTheme.of(context)
+                                                .secondaryBackground,
+                                            image: DecorationImage(
+                                              fit: BoxFit.fitHeight,
+                                              image: CachedNetworkImageProvider(
                                                 ReccApiGroup
                                                     .extractMentionedDataCall
-                                                    .mediaDescription(
-                                                      columnExtractMentionedDataResponse
-                                                          .jsonBody,
-                                                    )
-                                                    .toString(),
-                                                'Johann Harjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjj',
-                                              ),
-                                              textAlign: TextAlign.start,
-                                              style: GoogleFonts.getFont(
-                                                'Roboto',
-                                                color: Color(0x801B1D24),
-                                                fontSize: 12.0,
+                                                    .mediaImage(
+                                                  columnExtractMentionedDataResponse
+                                                      .jsonBody,
+                                                )[mediasIndex],
                                               ),
                                             ),
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
                                           ),
-                                        ],
+                                        ),
                                       ),
-                                    ),
+                                      Expanded(
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  0.0, 0.0, 12.0, 0.0),
+                                          child: Column(
+                                            mainAxisSize: MainAxisSize.min,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.start,
+                                            children: [
+                                              Text(
+                                                valueOrDefault<String>(
+                                                  (ReccApiGroup
+                                                          .extractMentionedDataCall
+                                                          .mediaTitle(
+                                                    columnExtractMentionedDataResponse
+                                                        .jsonBody,
+                                                  ) as List)
+                                                      .map<String>(
+                                                          (s) => s.toString())
+                                                      .toList()[mediasIndex],
+                                                  'Stolen Foc',
+                                                ),
+                                                style: GoogleFonts.getFont(
+                                                  'Roboto',
+                                                  color: Color(0xFF1B1D24),
+                                                  fontWeight: FontWeight.w500,
+                                                  fontSize: 14.0,
+                                                ),
+                                              ),
+                                              Text(
+                                                (ReccApiGroup
+                                                        .extractMentionedDataCall
+                                                        .mediaAuthor(
+                                                  columnExtractMentionedDataResponse
+                                                      .jsonBody,
+                                                ) as List)
+                                                    .map<String>(
+                                                        (s) => s.toString())
+                                                    .toList()[mediasIndex],
+                                                style: GoogleFonts.getFont(
+                                                  'Roboto',
+                                                  color: Color(0xFF1B1D24),
+                                                  fontWeight: FontWeight.normal,
+                                                  fontSize: 14.0,
+                                                ),
+                                              ),
+                                              Expanded(
+                                                child: AutoSizeText(
+                                                  (ReccApiGroup
+                                                          .extractMentionedDataCall
+                                                          .mediaDescription(
+                                                    columnExtractMentionedDataResponse
+                                                        .jsonBody,
+                                                  ) as List)
+                                                      .map<String>(
+                                                          (s) => s.toString())
+                                                      .toList()[mediasIndex],
+                                                  textAlign: TextAlign.start,
+                                                  style: GoogleFonts.getFont(
+                                                    'Roboto',
+                                                    color: Color(0x801B1D24),
+                                                    fontSize: 12.0,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                      FaIcon(
+                                        FontAwesomeIcons.chevronRight,
+                                        color: FlutterFlowTheme.of(context)
+                                            .secondaryText,
+                                        size: 24.0,
+                                      ),
+                                    ],
                                   ),
-                                  FaIcon(
-                                    FontAwesomeIcons.chevronRight,
-                                    color: FlutterFlowTheme.of(context)
-                                        .secondaryText,
-                                    size: 24.0,
-                                  ),
-                                ],
+                                ),
                               ),
-                            ),
+                            ],
                           );
                         },
                       );

@@ -10,18 +10,18 @@ import 'package:provider/provider.dart';
 class SendLinkTextFieldModel extends FlutterFlowModel<SendLinkTextFieldWidget> {
   ///  State fields for stateful widgets in this component.
 
-  // State field(s) for urlLink widget.
-  FocusNode? urlLinkFocusNode;
-  TextEditingController? urlLinkController;
-  String? Function(BuildContext, String?)? urlLinkControllerValidator;
+  // State field(s) for urlFromTextField widget.
+  FocusNode? urlFromTextFieldFocusNode;
+  TextEditingController? urlFromTextFieldController;
+  String? Function(BuildContext, String?)? urlFromTextFieldControllerValidator;
 
   /// Initialization and disposal methods.
 
   void initState(BuildContext context) {}
 
   void dispose() {
-    urlLinkFocusNode?.dispose();
-    urlLinkController?.dispose();
+    urlFromTextFieldFocusNode?.dispose();
+    urlFromTextFieldController?.dispose();
   }
 
   /// Action blocks are added here.

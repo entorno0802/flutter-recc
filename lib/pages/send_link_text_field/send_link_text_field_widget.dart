@@ -9,7 +9,13 @@ import 'send_link_text_field_model.dart';
 export 'send_link_text_field_model.dart';
 
 class SendLinkTextFieldWidget extends StatefulWidget {
-  const SendLinkTextFieldWidget({Key? key}) : super(key: key);
+  const SendLinkTextFieldWidget({
+    Key? key,
+    String? url,
+  })  : this.url = url ?? 'https://youtu.be/bRWT7hVgwuM?si=0f7O3LFjMj7DfkqQ',
+        super(key: key);
+
+  final String url;
 
   @override
   _SendLinkTextFieldWidgetState createState() =>
@@ -30,8 +36,9 @@ class _SendLinkTextFieldWidgetState extends State<SendLinkTextFieldWidget> {
     super.initState();
     _model = createModel(context, () => SendLinkTextFieldModel());
 
-    _model.urlLinkController ??= TextEditingController();
-    _model.urlLinkFocusNode ??= FocusNode();
+    _model.urlFromTextFieldController ??= TextEditingController();
+    _model.urlFromTextFieldFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
@@ -70,12 +77,12 @@ class _SendLinkTextFieldWidgetState extends State<SendLinkTextFieldWidget> {
                 padding: EdgeInsetsDirectional.fromSTEB(8.0, 0.0, 8.0, 0.0),
                 child: TextFormField(
                   key: ValueKey('jjj'),
-                  controller: _model.urlLinkController,
-                  focusNode: _model.urlLinkFocusNode,
+                  controller: _model.urlFromTextFieldController,
+                  focusNode: _model.urlFromTextFieldFocusNode,
                   autofocus: true,
                   obscureText: false,
                   decoration: InputDecoration(
-                    hintText: 'Paste a link...',
+                    hintText: 'Paste a link...\n',
                     hintStyle: GoogleFonts.getFont(
                       'Roboto',
                       color: Color(0x801B1D24),
@@ -91,8 +98,8 @@ class _SendLinkTextFieldWidgetState extends State<SendLinkTextFieldWidget> {
                     color: Color(0xFF1B1D24),
                     fontSize: 16.0,
                   ),
-                  validator:
-                      _model.urlLinkControllerValidator.asValidator(context),
+                  validator: _model.urlFromTextFieldControllerValidator
+                      .asValidator(context),
                 ),
               ),
             ),
@@ -104,6 +111,12 @@ class _SendLinkTextFieldWidgetState extends State<SendLinkTextFieldWidget> {
               onTap: () async {
                 context.pushNamed(
                   'ListeningPage',
+                  queryParameters: {
+                    'url0': serializeParam(
+                      _model.urlFromTextFieldController.text,
+                      ParamType.String,
+                    ),
+                  }.withoutNulls,
                   extra: <String, dynamic>{
                     kTransitionInfoKey: TransitionInfo(
                       hasTransition: true,

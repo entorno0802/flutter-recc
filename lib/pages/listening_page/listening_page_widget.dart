@@ -17,13 +17,10 @@ export 'listening_page_model.dart';
 class ListeningPageWidget extends StatefulWidget {
   const ListeningPageWidget({
     Key? key,
-    String? urlLink,
-    this.category,
-  })  : this.urlLink = urlLink ?? '',
-        super(key: key);
+    required this.url0,
+  }) : super(key: key);
 
-  final String urlLink;
-  final dynamic category;
+  final String? url0;
 
   @override
   _ListeningPageWidgetState createState() => _ListeningPageWidgetState();
@@ -61,10 +58,7 @@ class _ListeningPageWidgetState extends State<ListeningPageWidget>
       await Future.delayed(const Duration(milliseconds: 2000));
       _model.extractDataResponse =
           await ReccApiGroup.extractMentionedDataCall.call(
-        url: valueOrDefault<String>(
-          widget.urlLink,
-          'https://youtu.be/bRWT7hVgwuM?si=0f7O3LFjMj7DfkqQ',
-        ),
+        url: widget.url0,
       );
       if ((_model.extractDataResponse?.succeeded ?? true)) {
         context.pushNamed('List02Products');

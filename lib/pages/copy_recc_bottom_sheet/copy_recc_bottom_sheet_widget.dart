@@ -33,6 +33,7 @@ class _CopyReccBottomSheetWidgetState extends State<CopyReccBottomSheetWidget> {
     _model.textController ??= TextEditingController(
         text: 'recc.ooo/richroll-the-neuroscience-of-optimal');
     _model.textFieldFocusNode ??= FocusNode();
+
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 

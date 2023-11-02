@@ -19,7 +19,8 @@ class ReccApiGroup {
 
 class ExtractMentionedDataCall {
   Future<ApiCallResponse> call({
-    String? url = 'https://youtu.be/bRWT7hVgwuM?si=0f7O3LFjMj7DfkqQ',
+    String? url =
+        'https://www.youtube.com/watch?v=_WNL6dUFRiA&list=PLDBZgkgeoMJhpMxQ0sqpdhHYv4lZOf0J8&index=7',
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'extractMentionedData',
@@ -53,22 +54,27 @@ class ExtractMentionedDataCall {
   dynamic mediaCategory(dynamic response) => getJsonField(
         response,
         r'''$.media[:].Category''',
+        true,
       );
   dynamic mediaTitle(dynamic response) => getJsonField(
         response,
         r'''$.media[:].Title''',
+        true,
       );
   dynamic mediaAuthor(dynamic response) => getJsonField(
         response,
         r'''$.media[:].Author''',
+        true,
       );
   dynamic mediaDescription(dynamic response) => getJsonField(
         response,
         r'''$.media[:].Description''',
+        true,
       );
   dynamic mediaImage(dynamic response) => getJsonField(
         response,
         r'''$.media[:].Image''',
+        true,
       );
 }
 
