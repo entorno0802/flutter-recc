@@ -1,4 +1,5 @@
 import '/backend/api_requests/api_calls.dart';
+import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
@@ -6,6 +7,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
@@ -16,19 +18,38 @@ class ListeningPageWidget extends StatefulWidget {
   const ListeningPageWidget({
     Key? key,
     String? urlLink,
+    this.category,
   })  : this.urlLink = urlLink ?? '',
         super(key: key);
 
   final String urlLink;
+  final dynamic category;
 
   @override
   _ListeningPageWidgetState createState() => _ListeningPageWidgetState();
 }
 
-class _ListeningPageWidgetState extends State<ListeningPageWidget> {
+class _ListeningPageWidgetState extends State<ListeningPageWidget>
+    with TickerProviderStateMixin {
   late ListeningPageModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  final animationsMap = {
+    'textOnPageLoadAnimation': AnimationInfo(
+      loop: true,
+      trigger: AnimationTrigger.onPageLoad,
+      effects: [
+        FadeEffect(
+          curve: Curves.bounceOut,
+          delay: 220.ms,
+          duration: 1460.ms,
+          begin: 0.0,
+          end: 1.0,
+        ),
+      ],
+    ),
+  };
 
   @override
   void initState() {
@@ -37,14 +58,33 @@ class _ListeningPageWidgetState extends State<ListeningPageWidget> {
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await Future.delayed(const Duration(milliseconds: 2000));
       _model.extractDataResponse =
           await ReccApiGroup.extractMentionedDataCall.call(
-        url: widget.urlLink,
+        url: valueOrDefault<String>(
+          widget.urlLink,
+          'https://youtu.be/bRWT7hVgwuM?si=0f7O3LFjMj7DfkqQ',
+        ),
       );
       if ((_model.extractDataResponse?.succeeded ?? true)) {
         context.pushNamed('List02Products');
       } else {
-        context.pushNamed('List02Products');
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(
+              'Unable to extract data from the pasted link!!',
+              style: GoogleFonts.getFont(
+                'Roboto',
+                color: FlutterFlowTheme.of(context).primaryText,
+                fontWeight: FontWeight.w600,
+                fontSize: 16.0,
+              ),
+            ),
+            duration: Duration(milliseconds: 4300),
+            backgroundColor: FlutterFlowTheme.of(context).secondary,
+          ),
+        );
+        context.safePop();
       }
     });
 
@@ -107,7 +147,7 @@ class _ListeningPageWidgetState extends State<ListeningPageWidget> {
                   height: 24.0,
                 ),
                 minFontSize: 16.0,
-              ),
+              ).animateOnPageLoad(animationsMap['textOnPageLoadAnimation']!),
             ],
           ),
         ),

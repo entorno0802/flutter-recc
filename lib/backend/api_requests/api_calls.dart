@@ -11,16 +11,15 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 /// Start reccApi Group Code
 
 class ReccApiGroup {
-  static String baseUrl = 'http://95.164.44.248:9000';
+  static String baseUrl = 'http://3.144.22.3';
   static Map<String, String> headers = {};
   static ExtractMentionedDataCall extractMentionedDataCall =
       ExtractMentionedDataCall();
-  static RootCall rootCall = RootCall();
 }
 
 class ExtractMentionedDataCall {
   Future<ApiCallResponse> call({
-    String? url = 'https://youtu.be/2ekdc6jCu2E?si=HFY1m8JQmRP5Ln1x',
+    String? url = 'https://youtu.be/bRWT7hVgwuM?si=0f7O3LFjMj7DfkqQ',
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'extractMentionedData',
@@ -37,22 +36,40 @@ class ExtractMentionedDataCall {
       cache: false,
     );
   }
-}
 
-class RootCall {
-  Future<ApiCallResponse> call() async {
-    return ApiManager.instance.makeApiCall(
-      callName: 'root',
-      apiUrl: '${ReccApiGroup.baseUrl}//',
-      callType: ApiCallType.GET,
-      headers: {},
-      params: {},
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-    );
-  }
+  dynamic transcript(dynamic response) => getJsonField(
+        response,
+        r'''$.transcript''',
+      );
+  dynamic title(dynamic response) => getJsonField(
+        response,
+        r'''$.title''',
+      );
+  dynamic media(dynamic response) => getJsonField(
+        response,
+        r'''$.media''',
+        true,
+      );
+  dynamic mediaCategory(dynamic response) => getJsonField(
+        response,
+        r'''$.media[:].Category''',
+      );
+  dynamic mediaTitle(dynamic response) => getJsonField(
+        response,
+        r'''$.media[:].Title''',
+      );
+  dynamic mediaAuthor(dynamic response) => getJsonField(
+        response,
+        r'''$.media[:].Author''',
+      );
+  dynamic mediaDescription(dynamic response) => getJsonField(
+        response,
+        r'''$.media[:].Description''',
+      );
+  dynamic mediaImage(dynamic response) => getJsonField(
+        response,
+        r'''$.media[:].Image''',
+      );
 }
 
 /// End reccApi Group Code
