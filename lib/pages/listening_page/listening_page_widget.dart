@@ -58,10 +58,21 @@ class _ListeningPageWidgetState extends State<ListeningPageWidget>
       await Future.delayed(const Duration(milliseconds: 2000));
       _model.extractDataResponse =
           await ReccApiGroup.extractMentionedDataCall.call(
-        url: widget.url0,
+        thisUrl: widget.url0 ?? '',
+        // url: widget.url0,
       );
       if ((_model.extractDataResponse?.succeeded ?? true)) {
-        context.pushNamed('List02Products');
+        if (context.mounted) {
+          context.pushNamed(
+            'List02Products',
+            queryParameters: {
+              'listO2Url': serializeParam(
+                widget.url0,
+                ParamType.String,
+              ),
+            }.withoutNulls,
+          );
+        }
       } else {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(

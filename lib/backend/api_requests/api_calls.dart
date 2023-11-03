@@ -19,6 +19,7 @@ class ReccApiGroup {
 
 class ExtractMentionedDataCall {
   Future<ApiCallResponse> call({
+    required String thisUrl,
     String? url = 'https://youtu.be/bRWT7hVgwuM?si=0f7O3LFjMj7DfkqQ',
   }) async {
     return ApiManager.instance.makeApiCall(
@@ -27,7 +28,7 @@ class ExtractMentionedDataCall {
       callType: ApiCallType.POST,
       headers: {},
       params: {
-        'url': url,
+        'url': thisUrl,
       },
       bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
       returnBody: true,

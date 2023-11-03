@@ -9,7 +9,12 @@ import 'copy_recc_bottom_sheet_model.dart';
 export 'copy_recc_bottom_sheet_model.dart';
 
 class CopyReccBottomSheetWidget extends StatefulWidget {
-  const CopyReccBottomSheetWidget({Key? key}) : super(key: key);
+  const CopyReccBottomSheetWidget({
+    Key? key,
+    required this.urlToCopy,
+  }) : super(key: key);
+
+  final String? urlToCopy;
 
   @override
   _CopyReccBottomSheetWidgetState createState() =>
@@ -106,56 +111,73 @@ class _CopyReccBottomSheetWidgetState extends State<CopyReccBottomSheetWidget> {
                 ],
               ),
             ),
-            Padding(
-              padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 54.0),
-              child: TextFormField(
-                controller: _model.textController,
-                focusNode: _model.textFieldFocusNode,
-                autofocus: true,
-                readOnly: true,
-                obscureText: false,
-                decoration: InputDecoration(
-                  labelStyle: FlutterFlowTheme.of(context).labelMedium,
-                  hintStyle: GoogleFonts.getFont(
-                    'Roboto',
-                    color: Color(0xFF1B1D24),
-                    fontSize: 16.0,
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: Color(0xFF1B1D24),
-                      width: 1.0,
-                    ),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).primary,
-                      width: 1.0,
-                    ),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).error,
-                      width: 1.0,
-                    ),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      color: FlutterFlowTheme.of(context).error,
-                      width: 1.0,
-                    ),
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  contentPadding:
-                      EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 47.0, 20.0),
+            Container(
+              margin: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 54.0),
+              padding: EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 20.0, 20.0),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: FlutterFlowTheme.of(context).primary,
+                  width: 1.0,
                 ),
+                borderRadius: BorderRadius.circular(8.0),
+              ),
+              child: Text(
+                widget.urlToCopy ?? '',
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
                 style: FlutterFlowTheme.of(context).bodyMedium,
-                validator: _model.textControllerValidator.asValidator(context),
               ),
             ),
+            // Padding(
+            //   padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 54.0),
+            //   child: TextFormField(
+            //     controller: _model.textController,
+            //     focusNode: _model.textFieldFocusNode,
+            //     autofocus: true,
+            //     readOnly: true,
+            //     obscureText: false,
+            //     decoration: InputDecoration(
+            //       labelStyle: FlutterFlowTheme.of(context).labelMedium,
+            //       hintStyle: GoogleFonts.getFont(
+            //         'Roboto',
+            //         color: Color(0xFF1B1D24),
+            //         fontSize: 16.0,
+            //       ),
+            //       enabledBorder: OutlineInputBorder(
+            //         borderSide: BorderSide(
+            //           color: Color(0xFF1B1D24),
+            //           width: 1.0,
+            //         ),
+            //         borderRadius: BorderRadius.circular(8.0),
+            //       ),
+            //       focusedBorder: OutlineInputBorder(
+            //         borderSide: BorderSide(
+            //           color: FlutterFlowTheme.of(context).primary,
+            //           width: 1.0,
+            //         ),
+            //         borderRadius: BorderRadius.circular(8.0),
+            //       ),
+            //       errorBorder: OutlineInputBorder(
+            //         borderSide: BorderSide(
+            //           color: FlutterFlowTheme.of(context).error,
+            //           width: 1.0,
+            //         ),
+            //         borderRadius: BorderRadius.circular(8.0),
+            //       ),
+            //       focusedErrorBorder: OutlineInputBorder(
+            //         borderSide: BorderSide(
+            //           color: FlutterFlowTheme.of(context).error,
+            //           width: 1.0,
+            //         ),
+            //         borderRadius: BorderRadius.circular(8.0),
+            //       ),
+            //       contentPadding:
+            //           EdgeInsetsDirectional.fromSTEB(20.0, 20.0, 47.0, 20.0),
+            //     ),
+            //     style: FlutterFlowTheme.of(context).bodyMedium,
+            //     validator: _model.textControllerValidator.asValidator(context),
+            //   ),
+            // ),
             FFButtonWidget(
               onPressed: () {
                 print('Button pressed ...');

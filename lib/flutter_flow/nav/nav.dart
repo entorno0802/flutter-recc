@@ -57,15 +57,17 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             url0: params.getParam('url0', ParamType.String),
           ),
         ),
-        FFRoute(
-          name: 'ProfilePage',
-          path: '/profilePage',
-          builder: (context, params) => ProfilePageWidget(),
-        ),
+        // FFRoute(
+        //   name: 'ProfilePage',
+        //   path: '/profilePage',
+        //   builder: (context, params) => ProfilePageWidget(),
+        // ),
         FFRoute(
           name: 'List02Products',
           path: '/list02Products',
-          builder: (context, params) => List02ProductsWidget(),
+          builder: (context, params) => List02ProductsWidget(
+            listO2Url: params.getParam('listO2Url', ParamType.String),
+          ),
         )
       ].map((r) => r.toRoute(appStateNotifier)).toList(),
     );

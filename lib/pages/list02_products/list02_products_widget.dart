@@ -16,7 +16,12 @@ import 'list02_products_model.dart';
 export 'list02_products_model.dart';
 
 class List02ProductsWidget extends StatefulWidget {
-  const List02ProductsWidget({Key? key}) : super(key: key);
+  const List02ProductsWidget({
+    Key? key,
+    required this.listO2Url,
+  }) : super(key: key);
+
+  final String? listO2Url;
 
   @override
   _List02ProductsWidgetState createState() => _List02ProductsWidgetState();
@@ -96,7 +101,9 @@ class _List02ProductsWidgetState extends State<List02ProductsWidget> {
           elevation: 0.0,
         ),
         body: FutureBuilder<ApiCallResponse>(
-          future: ReccApiGroup.extractMentionedDataCall.call(),
+          future: ReccApiGroup.extractMentionedDataCall.call(
+            thisUrl: widget.listO2Url ?? '',
+          ),
           builder: (context, snapshot) {
             // Customize what your widget looks like when it's loading.
             if (!snapshot.hasData) {
@@ -167,14 +174,11 @@ class _List02ProductsWidgetState extends State<List02ProductsWidget> {
                       padding:
                           EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 12.0),
                       child: Text(
-                        valueOrDefault<String>(
-                          ReccApiGroup.extractMentionedDataCall
-                              .title(
-                                columnExtractMentionedDataResponse.jsonBody,
-                              )
-                              .toString(),
-                          'The Neuroscience of Optimal Performance: Dr. Andrew Huberman | Rich Roll Podcast',
-                        ),
+                        ReccApiGroup.extractMentionedDataCall
+                            .title(
+                              columnExtractMentionedDataResponse.jsonBody,
+                            )
+                            .toString(),
                         textAlign: TextAlign.start,
                         style: GoogleFonts.getFont(
                           'Roboto',
@@ -261,7 +265,9 @@ class _List02ProductsWidgetState extends State<List02ProductsWidget> {
                                           : FocusScope.of(context).unfocus(),
                                   child: Padding(
                                     padding: MediaQuery.viewInsetsOf(context),
-                                    child: CopyReccBottomSheetWidget(),
+                                    child: CopyReccBottomSheetWidget(
+                                      urlToCopy: widget.listO2Url,
+                                    ),
                                   ),
                                 );
                               },
