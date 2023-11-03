@@ -11,7 +11,7 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 /// Start reccApi Group Code
 
 class ReccApiGroup {
-  static String baseUrl = 'http://3.144.22.3';
+  static String baseUrl = 'http://95.164.44.248:9000';
   static Map<String, String> headers = {};
   static ExtractMentionedDataCall extractMentionedDataCall =
       ExtractMentionedDataCall();
@@ -19,8 +19,7 @@ class ReccApiGroup {
 
 class ExtractMentionedDataCall {
   Future<ApiCallResponse> call({
-    String? url =
-        'https://www.youtube.com/watch?v=_WNL6dUFRiA&list=PLDBZgkgeoMJhpMxQ0sqpdhHYv4lZOf0J8&index=7',
+    String? url = 'https://youtu.be/bRWT7hVgwuM?si=0f7O3LFjMj7DfkqQ',
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'extractMentionedData',
