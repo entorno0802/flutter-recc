@@ -49,6 +49,8 @@ class _List02ProductsWidgetState extends State<List02ProductsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.sizeOf(context);
+
     if (isiOS) {
       SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle(
@@ -297,17 +299,11 @@ class _List02ProductsWidgetState extends State<List02ProductsWidget> {
                           ),
                         ),
                       ),
-                      Container(
-                        width: 25.0,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFFFFFF9),
-                        ),
-                      ),
                     ],
                   ),
                 ),
                 Container(
-                  height: 500.0,
+                  height: size.height * 0.48,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                   ),

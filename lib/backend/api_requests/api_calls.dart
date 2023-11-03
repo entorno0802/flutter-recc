@@ -11,7 +11,8 @@ const _kPrivateApiFunctionName = 'ffPrivateApiCall';
 /// Start reccApi Group Code
 
 class ReccApiGroup {
-  static String baseUrl = 'http://95.164.44.248:9000';
+  // static String baseUrl = 'http://95.164.44.248:9000';
+  static String baseUrl = 'http://3.144.22.3';
   static Map<String, String> headers = {};
   static ExtractMentionedDataCall extractMentionedDataCall =
       ExtractMentionedDataCall();
