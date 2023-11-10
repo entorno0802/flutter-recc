@@ -1,8 +1,6 @@
-import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -37,18 +35,6 @@ class _SendLinkTextFieldWidgetState extends State<SendLinkTextFieldWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => SendLinkTextFieldModel());
-
-    // On component load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.apiResult134 = await GetReccCall.call(
-        url: _model.urlFromTextFieldController.text,
-      );
-      if ((_model.apiResult134?.succeeded ?? true)) {
-        _model.updatePage(() {
-          FFAppState().answer = (_model.apiResult134?.bodyText ?? '');
-        });
-      }
-    });
 
     _model.urlFromTextFieldController ??= TextEditingController();
     _model.urlFromTextFieldFocusNode ??= FocusNode();
@@ -95,6 +81,11 @@ class _SendLinkTextFieldWidgetState extends State<SendLinkTextFieldWidget> {
                   key: ValueKey('jjj'),
                   controller: _model.urlFromTextFieldController,
                   focusNode: _model.urlFromTextFieldFocusNode,
+                  onFieldSubmitted: (_) async {
+                    setState(() {
+                      FFAppState().url = _model.urlFromTextFieldController.text;
+                    });
+                  },
                   autofocus: true,
                   obscureText: false,
                   decoration: InputDecoration(

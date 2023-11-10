@@ -18,46 +18,42 @@ class FFAppState extends ChangeNotifier {
     _instance = FFAppState._internal();
   }
 
-  Future initializePersistedState() async {}
+  Future initializePersistedState() async {
+    prefs = await SharedPreferences.getInstance();
+    _safeInit(() {
+      if (prefs.containsKey('ff_mediaresponse')) {
+        try {
+          _mediaresponse =
+              jsonDecode(prefs.getString('ff_mediaresponse') ?? '');
+        } catch (e) {
+          print("Can't decode persisted json. Error: $e.");
+        }
+      }
+    });
+    _safeInit(() {
+      _url = prefs.getString('ff_url') ?? _url;
+    });
+  }
 
   void update(VoidCallback callback) {
     callback();
     notifyListeners();
   }
 
-  String _answer = '';
-  String get answer => _answer;
-  set answer(String _value) {
-    _answer = _value;
+  late SharedPreferences prefs;
+
+  dynamic _mediaresponse;
+  dynamic get mediaresponse => _mediaresponse;
+  set mediaresponse(dynamic _value) {
+    _mediaresponse = _value;
+    prefs.setString('ff_mediaresponse', jsonEncode(_value));
   }
 
-  List<dynamic> _answer1 = [jsonDecode('{}')];
-  List<dynamic> get answer1 => _answer1;
-  set answer1(List<dynamic> _value) {
-    _answer1 = _value;
-  }
-
-  void addToAnswer1(dynamic _value) {
-    _answer1.add(_value);
-  }
-
-  void removeFromAnswer1(dynamic _value) {
-    _answer1.remove(_value);
-  }
-
-  void removeAtIndexFromAnswer1(int _index) {
-    _answer1.removeAt(_index);
-  }
-
-  void updateAnswer1AtIndex(
-    int _index,
-    dynamic Function(dynamic) updateFn,
-  ) {
-    _answer1[_index] = updateFn(_answer1[_index]);
-  }
-
-  void insertAtIndexInAnswer1(int _index, dynamic _value) {
-    _answer1.insert(_index, _value);
+  String _url = '';
+  String get url => _url;
+  set url(String _value) {
+    _url = _value;
+    prefs.setString('ff_url', _value);
   }
 }
 

@@ -1,10 +1,8 @@
-import '/backend/api_requests/api_calls.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/pages/send_link_text_field/send_link_text_field_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -28,18 +26,6 @@ class _HomePageNEWWidgetState extends State<HomePageNEWWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, () => HomePageNEWModel());
-
-    // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      _model.apiResult4v6 = await GetReccCall.call(
-        url: _model.sendLinkTextFieldModel.urlFromTextFieldController.text,
-      );
-      if ((_model.apiResult4v6?.succeeded ?? true)) {
-        setState(() {
-          FFAppState().answer = (_model.apiResult4v6?.bodyText ?? '');
-        });
-      }
-    });
 
     WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }

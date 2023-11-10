@@ -19,7 +19,7 @@ class ReccApiGroup {
 
 class ExtractMentionedDataCall {
   Future<ApiCallResponse> call({
-    String? url0 = 'https://youtu.be/2ekdc6jCu2E?si=HFY1m8JQmRP5Ln1x',
+    String? url = '',
   }) async {
     return ApiManager.instance.makeApiCall(
       callName: 'extractMentionedData',
@@ -27,7 +27,7 @@ class ExtractMentionedDataCall {
       callType: ApiCallType.POST,
       headers: {},
       params: {
-        'url0': url0,
+        'url': url,
       },
       bodyType: BodyType.MULTIPART,
       returnBody: true,
@@ -78,61 +78,6 @@ class ExtractMentionedDataCall {
 }
 
 /// End reccApi Group Code
-
-class GetReccCall {
-  static Future<ApiCallResponse> call({
-    String? url = '',
-  }) async {
-    return ApiManager.instance.makeApiCall(
-      callName: 'Get Recc',
-      apiUrl: 'http://3.144.22.3/extract_mentioned_data',
-      callType: ApiCallType.POST,
-      headers: {},
-      params: {
-        'url': url,
-      },
-      bodyType: BodyType.MULTIPART,
-      returnBody: true,
-      encodeBodyUtf8: false,
-      decodeUtf8: false,
-      cache: false,
-    );
-  }
-
-  static dynamic transcript1(dynamic response) => getJsonField(
-        response,
-        r'''$.transcript''',
-      );
-  static dynamic media1(dynamic response) => getJsonField(
-        response,
-        r'''$.media''',
-        true,
-      );
-  static dynamic mediaCategory1(dynamic response) => getJsonField(
-        response,
-        r'''$.media[:].Category''',
-      );
-  static dynamic mediaTitle1(dynamic response) => getJsonField(
-        response,
-        r'''$.media[:].Title''',
-      );
-  static dynamic mediaAuthor1(dynamic response) => getJsonField(
-        response,
-        r'''$.media[:].Author''',
-      );
-  static dynamic mediaDescription1(dynamic response) => getJsonField(
-        response,
-        r'''$.media[:].Description''',
-      );
-  static dynamic mediaImage1(dynamic response) => getJsonField(
-        response,
-        r'''$.media[:].Image''',
-      );
-  static dynamic title1(dynamic response) => getJsonField(
-        response,
-        r'''$.title''',
-      );
-}
 
 class ApiPagingParams {
   int nextPageNumber = 0;

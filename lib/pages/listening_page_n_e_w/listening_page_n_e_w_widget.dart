@@ -54,12 +54,17 @@ class _ListeningPageNEWWidgetState extends State<ListeningPageNEWWidget>
 
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
-      await Future.delayed(const Duration(milliseconds: 2000));
-      _model.apiResulttf7 = await GetReccCall.call(
+      _model.mediaResponse = await ReccApiGroup.extractMentionedDataCall.call(
         url: widget.url,
       );
-      if ((_model.apiResulttf7?.succeeded ?? true)) {
-        context.pushNamed('List02Products');
+      if ((_model.mediaResponse?.succeeded ?? true)) {
+        setState(() {
+          FFAppState().mediaresponse = (_model.mediaResponse?.jsonBody ?? '');
+        });
+
+        context.goNamed('List02Products');
+      } else {
+        context.pushNamed('HomePageNEW');
       }
     });
 
@@ -100,66 +105,58 @@ class _ListeningPageNEWWidgetState extends State<ListeningPageNEWWidget>
             child: Container(
               width: 100.0,
               height: 100.0,
-              constraints: BoxConstraints(
-                minWidth: double.infinity,
-                minHeight: double.infinity,
-                maxWidth: 544.0,
-              ),
               decoration: BoxDecoration(
                 color: FlutterFlowTheme.of(context).secondaryBackground,
               ),
-              child: InkWell(
-                splashColor: Colors.transparent,
-                focusColor: Colors.transparent,
-                hoverColor: Colors.transparent,
-                highlightColor: Colors.transparent,
-                onTap: () async {
-                  await Future.delayed(const Duration(milliseconds: 2000));
-                  _model.newEndpoint = await GetReccCall.call(
-                    url: widget.url,
-                  );
-                  if ((_model.newEndpoint?.succeeded ?? true)) {
-                    context.pushNamed('List02Products');
-                  }
-
-                  setState(() {});
-                },
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 100.0,
-                      constraints: BoxConstraints(
-                        maxWidth: 544.0,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFFFFFF9),
-                        shape: BoxShape.rectangle,
-                      ),
-                      child: Lottie.asset(
-                        'assets/lottie_animations/Animation_-_1699505639871.json',
-                        width: 150.0,
-                        height: 130.0,
-                        fit: BoxFit.cover,
-                        animate: true,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    height: 100.0,
+                    constraints: BoxConstraints(
+                      maxWidth: 544.0,
+                    ),
+                    decoration: BoxDecoration(
+                      color: Color(0xFFFFFFF9),
+                      shape: BoxShape.rectangle,
+                    ),
+                    child: Lottie.asset(
+                      'assets/lottie_animations/Animation_-_1699505639871.json',
+                      width: 150.0,
+                      height: 130.0,
+                      fit: BoxFit.cover,
+                      animate: true,
+                    ),
+                  ),
+                  AutoSizeText(
+                    'Listening...',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.getFont(
+                      'Roboto',
+                      color: Color(0xBF1B1D24),
+                      fontSize: 16.0,
+                      height: 24.0,
+                    ),
+                    minFontSize: 16.0,
+                  ).animateOnPageLoad(
+                      animationsMap['textOnPageLoadAnimation']!),
+                  Align(
+                    alignment: AlignmentDirectional(0.00, 0.00),
+                    child: Padding(
+                      padding:
+                          EdgeInsetsDirectional.fromSTEB(0.0, 50.0, 0.0, 0.0),
+                      child: Text(
+                        valueOrDefault<String>(
+                          widget.url,
+                          'hello',
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium,
                       ),
                     ),
-                    AutoSizeText(
-                      'Listening...',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.getFont(
-                        'Roboto',
-                        color: Color(0xBF1B1D24),
-                        fontSize: 16.0,
-                        height: 24.0,
-                      ),
-                      minFontSize: 16.0,
-                    ).animateOnPageLoad(
-                        animationsMap['textOnPageLoadAnimation']!),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
           ),

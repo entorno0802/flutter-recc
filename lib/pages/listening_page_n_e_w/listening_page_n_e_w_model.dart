@@ -17,10 +17,8 @@ class ListeningPageNEWModel extends FlutterFlowModel<ListeningPageNEWWidget> {
   ///  State fields for stateful widgets in this page.
 
   final unfocusNode = FocusNode();
-  // Stores action output result for [Backend Call - API (Get Recc)] action in ListeningPageNEW widget.
-  ApiCallResponse? apiResulttf7;
-  // Stores action output result for [Backend Call - API (Get Recc)] action in Column widget.
-  ApiCallResponse? newEndpoint;
+  // Stores action output result for [Backend Call - API (extractMentionedData)] action in ListeningPageNEW widget.
+  ApiCallResponse? mediaResponse;
 
   /// Initialization and disposal methods.
 

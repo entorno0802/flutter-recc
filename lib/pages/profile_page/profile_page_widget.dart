@@ -55,7 +55,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
     context.watch<FFAppState>();
 
     return FutureBuilder<ApiCallResponse>(
-      future: GetReccCall.call(),
+      future: ReccApiGroup.extractMentionedDataCall.call(),
       builder: (context, snapshot) {
         // Customize what your widget looks like when it's loading.
         if (!snapshot.hasData) {
@@ -74,7 +74,7 @@ class _ProfilePageWidgetState extends State<ProfilePageWidget> {
             ),
           );
         }
-        final profilePageGetReccResponse = snapshot.data!;
+        final profilePageExtractMentionedDataResponse = snapshot.data!;
         return GestureDetector(
           onTap: () => _model.unfocusNode.canRequestFocus
               ? FocusScope.of(context).requestFocus(_model.unfocusNode)
