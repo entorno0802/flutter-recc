@@ -55,7 +55,10 @@ class _ListeningPageNEWWidgetState extends State<ListeningPageNEWWidget>
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
       _model.mediaResponse = await ReccApiGroup.extractMentionedDataCall.call(
-        url: widget.url,
+        url: valueOrDefault<String>(
+          widget.url,
+          'https://www.youtube.com/watch?v=vCQGwwMWp48',
+        ),
       );
       if ((_model.mediaResponse?.succeeded ?? true)) {
         setState(() {

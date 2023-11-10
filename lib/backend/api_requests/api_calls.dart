@@ -29,7 +29,7 @@ class ExtractMentionedDataCall {
       params: {
         'url': url,
       },
-      bodyType: BodyType.MULTIPART,
+      bodyType: BodyType.X_WWW_FORM_URL_ENCODED,
       returnBody: true,
       encodeBodyUtf8: false,
       decodeUtf8: false,
